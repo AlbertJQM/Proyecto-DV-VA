@@ -1,0 +1,121 @@
+FACTSALES
+TOTAL CUSTOMERS - ORDER STATUS
+TotalCustomers = DISTINCTCOUNT(FactSales[customer_unique_id])
+TotalCustomersApproved = CALCULATE([TotalCustomers], FactSales[order_status] = "approved")
+TotalCustomersCanceled = CALCULATE([TotalCustomers], FactSales[order_status] = "canceled")
+TotalCustomersDelivered = CALCULATE([TotalCustomers], FactSales[order_status] = "delivered")
+TotalCustomersInvoiced = CALCULATE([TotalCustomers], FactSales[order_status] = "invoiced")
+TotalCustomersProcessing = CALCULATE([TotalCustomers], FactSales[order_status] = "processing")
+TotalCustomersShipped = CALCULATE([TotalCustomers], FactSales[order_status] = "shipped")
+TotalCustomersUnavailable = CALCULATE([TotalCustomers], FactSales[order_status] = "unavailable")
+
+TOTAL FREIGHT - ORDER STATUS
+TotalFreight = SUM(FactSales[freight_value])
+TotalFreightApproved = CALCULATE([TotalFreight], FactSales[order_status] = "approved")
+TotalFreightCanceled = CALCULATE([TotalFreight], FactSales[order_status] = "canceled")
+TotalFreightDelivered = CALCULATE([TotalFreight], FactSales[order_status] = "delivered")
+TotalFreightInvoiced = CALCULATE([TotalFreight], FactSales[order_status] = "invoiced")
+TotalFreightProcessing = CALCULATE([TotalFreight], FactSales[order_status] = "processing")
+TotalFreightShipped = CALCULATE([TotalFreight], FactSales[order_status] = "shipped")
+TotalFreightUnavailable = CALCULATE([TotalFreight], FactSales[order_status] = "unavailable")
+
+TOTAL ITEMS SOLD - ORDER STATUS
+TotalItemsSold = COUNTROWS(FactSales)
+TotalItemsSoldApproved = CALCULATE([TotalItemsSold], FactSales[order_status] = "approved")
+TotalItemsSoldCanceled = CALCULATE([TotalItemsSold], FactSales[order_status] = "canceled")
+TotalItemsSoldDelivered = CALCULATE([TotalItemsSold], FactSales[order_status] = "delivered")
+TotalItemsSoldInvoiced = CALCULATE([TotalItemsSold], FactSales[order_status] = "invoiced")
+TotalItemsSoldProcessing = CALCULATE([TotalItemsSold], FactSales[order_status] = "processing")
+TotalItemsSoldShipped = CALCULATE([TotalItemsSold], FactSales[order_status] = "shipped")
+TotalItemsSoldUnavailable = CALCULATE([TotalItemsSold], FactSales[order_status] = "unavailable")
+
+TOTAL ORDERS - ORDER STATUS
+TotalOrders = DISTINCTCOUNT(FactSales[order_id])
+TotalOrdersApproved = CALCULATE([TotalOrders], FactSales[order_status] = "approved")
+TotalOrdersCanceled = CALCULATE([TotalOrders], FactSales[order_status] = "canceled")
+TotalOrdersDelivered = CALCULATE([TotalOrders], FactSales[order_status] = "delivered")
+TotalOrdersInvoiced = CALCULATE([TotalOrders], FactSales[order_status] = "invoiced")
+TotalOrdersProcessing = CALCULATE([TotalOrders], FactSales[order_status] = "processing")
+TotalOrdersShipped = CALCULATE([TotalOrders], FactSales[order_status] = "shipped")
+TotalOrdersUnavailable = CALCULATE([TotalOrders], FactSales[order_status] = "unavailable")
+
+TOTAL PRODUCT SALES - ORDER STATUS
+TotalProductSales = SUM(FactSales[price])
+TotalProductSalesApproved = CALCULATE([TotalProductSales], FactSales[order_status] = "approved")
+TotalProductSalesCanceled = CALCULATE([TotalProductSales], FactSales[order_status] = "canceled")
+TotalProductSalesDelivered = CALCULATE([TotalProductSales], FactSales[order_status] = "delivered")
+TotalProductSalesInvoiced = CALCULATE([TotalProductSales], FactSales[order_status] = "invoiced")
+TotalProductSalesProcessing = CALCULATE([TotalProductSales], FactSales[order_status] = "processing")
+TotalProductSalesShipped = CALCULATE([TotalProductSales], FactSales[order_status] = "shipped")
+TotalProductSalesUnavailable = CALCULATE([TotalProductSales], FactSales[order_status] = "unavailable")
+
+TOTAL REVENUE - ORDER STATUS
+TotalRevenue = SUM(FactSales[total_item_value])
+TotalRevenueApproved = CALCULATE([TotalRevenue], FactSales[order_status] = "approved")
+TotalRevenueCanceled = CALCULATE([TotalRevenue], FactSales[order_status] = "canceled")
+TotalRevenueDelivered = CALCULATE([TotalRevenue], FactSales[order_status] = "delivered")
+TotalRevenueInvoiced = CALCULATE([TotalRevenue], FactSales[order_status] = "invoiced")
+TotalRevenueProcessing = CALCULATE([TotalRevenue], FactSales[order_status] = "processing")
+TotalRevenueShipped = CALCULATE([TotalRevenue], FactSales[order_status] = "shipped")
+TotalRevenueUnavailable = CALCULATE([TotalRevenue], FactSales[order_status] = "unavailable")
+
+TOTAL ITEMS SOLD - DELAY CATEGORY
+TotalItemsSold_Delayed = CALCULATE([TotalItemsSold], FactSales[delay_category] = "Delayed")
+TotalItemsSold_Fast = CALCULATE([TotalItemsSold], FactSales[delay_category] = "Fast")
+TotalItemsSold_Normal = CALCULATE([TotalItemsSold], FactSales[delay_category] = "Normal")
+
+TOTAL ORDERS - DELAY CATEGORY
+TotalOrders_Delayed = CALCULATE([TotalOrders], FactSales[delay_category] = "Delayed")
+TotalOrders_Fast = CALCULATE([TotalOrders], FactSales[delay_category] = "Fast")
+TotalOrders_Normal = CALCULATE([TotalOrders], FactSales[delay_category] = "Normal")
+
+TOTAL REVENUE - DELAY CATEGORY
+TotalRevenue_Delayed = CALCULATE([TotalRevenue], FactSales[delay_category] = "Delayed")
+TotalRevenue_Fast = CALCULATE([TotalRevenue], FactSales[delay_category] = "Fast")
+TotalRevenue_Normal = CALCULATE([TotalRevenue], FactSales[delay_category] = "Normal")
+
+AVERAGE DELIVERY TIME
+AverageDeliveryTime = AVERAGE(FactSales[delivery_time_days])
+
+ORDER STATUS RATE
+ComplementOrderRate = DIVIDE([TotalOrdersApproved] + [TotalOrdersInvoiced] + [TotalOrdersProcessing] + [TotalOrdersShipped] + [TotalOrdersUnavailable], [TotalOrders]) * 100
+CanceledOrdersRate = DIVIDE([TotalOrdersCanceled], [TotalOrders]) * 100
+DeliveryRate = DIVIDE([TotalOrdersDelivered], [TotalOrders]) * 100
+
+DELAY ORDER RATE
+DelayOrderRate = DIVIDE([TotalOrders_Delayed], [TotalOrders]) * 100
+
+AVERAGE ORDER VALUE
+AverageOrderValue = DIVIDE([TotalRevenue], [TotalOrders])
+
+AVERAGE ITEMS PER ORDER
+AverageItemsOrder = DIVIDE([TotalItemsSold], [TotalOrders])
+
+REVENUE PER CUSTOMER
+RevenueCustomer = DIVIDE([TotalRevenue], [TotalCustomers])
+
+RETURNING CUSTOMERS
+ReturningCustomers = CALCULATE([TotalCustomers], FILTER(VALUES(FactSales[customer_unique_id]), CALCULATE(DISTINCTCOUNT(FactSales[order_id])) > 1))
+
+RETENTION CUSTOMERS RATE
+RetentionCustomersRate = DIVIDE([ReturningCustomers], [TotalCustomers]) * 100
+
+FACTPAYMENTS
+AVERAGE PAYMENT EVENTS
+AveragePaymentEvents = AVERAGE(FactPayments[payment_sequential])
+
+PAYMENT EFFICIENCY
+Payment Efficiency = DIVIDE([Total Payments], [Revenue])
+
+TOTAL PAYMENTS - ORDER STATUS
+TotalPayments = SUM(FactPayments[payment_value])
+TotalPaymentsApproved = CALCULATE([TotalPayments], FactSales[order_status] = "approved")
+TotalPaymentsCanceled = CALCULATE([TotalPayments], FactSales[order_status] = "canceled")
+TotalPaymentsDelivered = CALCULATE([TotalPayments], FactSales[order_status] = "delivered")
+TotalPaymentsInvoiced = CALCULATE([TotalPayments], FactSales[order_status] = "invoiced")
+TotalPaymentsProcessing = CALCULATE([TotalPayments], FactSales[order_status] = "processing")
+TotalPaymentsShipped = CALCULATE([TotalPayments], FactSales[order_status] = "shipped")
+TotalPaymentsUnavailable = CALCULATE([TotalPayments], FactSales[order_status] = "unavailable")
+
+TOTAL PAYMENT TRANSACTIONS
+TotalPaymentTransactions = COUNTROWS(FactPayments)
